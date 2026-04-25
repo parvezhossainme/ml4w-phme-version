@@ -1,0 +1,16 @@
+# OS/editor noise
+.DS_Store
+*.swp
+*~
+
+# Common backup/temp files
+*.bak
+*.old
+*.orig
+*.tmp
+
+# Accidental duplicate copies created by GUI tools
+* (copy *).*
+
+# Local shell runtime state (machine-specific)
+.config/fish/fish_variables
