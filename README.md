@@ -38,6 +38,48 @@ git clone -b parvezhossainme https://github.com/parvezhossainme/ml4w-phme-versio
 
 Then copy/symlink the files you want into your `$HOME`.
 
+## Package Installation (Arch Linux)
+
+Install the main packages used by these dotfiles:
+
+```bash
+sudo pacman -Syu --needed \
+	hyprland hyprlock hypridle \
+	waybar rofi-wayland swaync wlogout walker \
+	kitty fish zsh btop fastfetch vim \
+	wl-clipboard cliphist grim slurp \
+	brightnessctl playerctl wireplumber
+```
+
+Optional packages (AUR, with `yay`):
+
+```bash
+yay -S --needed waypaper matugen-bin
+```
+
+## Keybindings (Default)
+
+Source: `.config/hypr/conf/keybindings/default.conf`
+
+| Shortcut | Action |
+| --- | --- |
+| `SUPER + Enter` | Open terminal |
+| `SUPER + B` | Open browser |
+| `SUPER + E` | Open file manager |
+| `SUPER + A` | Open app launcher (rofi) |
+| `SUPER + Q` | Close active window |
+| `SUPER + F` | Fullscreen active window |
+| `SUPER + T` | Toggle floating mode |
+| `SUPER + Arrow Keys` | Move focus |
+| `SUPER + Shift + Arrow Keys` | Resize active window |
+| `SUPER + S` | Screenshot menu |
+| `SUPER + Shift + S` | Instant area screenshot + copy |
+| `SUPER + Ctrl + Q` | Open power menu (wlogout) |
+| `SUPER + Shift + B` | Restart waybar |
+| `SUPER + Ctrl + B` | Toggle waybar |
+| `SUPER + 1..0` | Switch workspace 1..10 |
+| `SUPER + Shift + 1..0` | Move window to workspace 1..10 |
+
 ## Update Workflow
 
 When you modify configs:
