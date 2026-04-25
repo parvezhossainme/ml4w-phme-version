@@ -1,30 +1,46 @@
-# My Dotfiles
+# ML4W PHME Dotfiles
 
-This repository contains my Linux desktop customization files (Hyprland + Wayland setup).
+Personal Linux desktop dotfiles based on an ML4W/Hyprland workflow.
 
-## Included
+This repo contains my shell, Hyprland, Waybar, Rofi, theming, and utility configuration to reproduce my desktop customization setup.
+
+## Repository
+
+- GitHub: https://github.com/parvezhossainme/ml4w-phme-version
+- Default branch: `parvezhossainme`
+
+## What Is Included
 
 - Shell: `.bashrc`, `.zshrc`, `.config/bashrc`, `.config/zshrc`, `.config/fish`
-- Window manager: `.config/hypr`
-- Status/UI: `.config/waybar`, `.config/rofi`, `.config/wlogout`, `.config/swaync`, `.config/walker`
-- Terminal/tools: `.config/kitty`, `.config/btop`, `.config/fastfetch`, `.config/ohmyposh`
+- Hyprland: `.config/hypr`
+- Bar/launcher/notifications: `.config/waybar`, `.config/rofi`, `.config/swaync`, `.config/wlogout`, `.config/walker`
+- Terminal and tools: `.config/kitty`, `.config/btop`, `.config/fastfetch`, `.config/ohmyposh`
 - Theming: `.config/gtk-3.0`, `.config/gtk-4.0`, `.config/matugen`, `.config/qt6ct`, `.config/xsettingsd`
-- Extras: `.config/waypaper`, `.config/nwg-dock-hyprland`, `.config/quickshell`, `.config/sidepad`, `.config/vim`
+- Extra components: `.config/quickshell`, `.config/waypaper`, `.config/nwg-dock-hyprland`, `.config/sidepad`, `.config/vim`
 
-## Push To GitHub
+## Screenshots
 
-From this folder, run:
+### Desktop Overview
+
+![Desktop Overview](.config/quickshell/overview/assets/image.png)
+
+### Wallpaper Preview
+
+![Wallpaper Preview](.config/ml4w/wallpapers/default.jpg)
+
+## Quick Start
+
+Clone into your home directory (or any location you prefer):
 
 ```bash
-git init
-git add .
-git commit -m "Initial dotfiles"
-git branch -M main
-git remote add origin https://github.com/<your-username>/<your-repo>.git
-git push -u origin main
+git clone -b parvezhossainme https://github.com/parvezhossainme/ml4w-phme-version.git
 ```
 
-## Update After Changes
+Then copy/symlink the files you want into your `$HOME`.
+
+## Update Workflow
+
+When you modify configs:
 
 ```bash
 git add .
@@ -34,8 +50,8 @@ git push
 
 ## Notes
 
-- `.gitignore` excludes machine-specific noise (temporary files, backups, shell runtime state).
-- Before each push, quickly review staged changes:
+- `.gitignore` excludes machine-specific noise and temporary files.
+- Always review what will be committed:
 
 ```bash
 git status
