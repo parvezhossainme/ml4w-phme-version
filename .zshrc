@@ -35,4 +35,3 @@ done
 if [ -f ~/.zshrc_custom ]; then
     source ~/.zshrc_custom
 fi
-export PATH="$HOME/.local/bin:$PATH"

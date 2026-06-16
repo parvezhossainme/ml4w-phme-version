@@ -224,13 +224,12 @@ window#waybar.empty #window {
 }
 
 #custom-ml4w-welcome {
-    margin-right: 8px;
-    background-image: url("../../assets/ml4w-icon-20.png");
+    margin-right: 12px;
+    background-image: url("../../assets/ml4w-icon.svg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 26px 26px;
-    min-width: 26px;
-    padding: 0;
+    background-size: contain;
+    padding-right: 20px;
 }
 
 /* -----------------------------------------------------

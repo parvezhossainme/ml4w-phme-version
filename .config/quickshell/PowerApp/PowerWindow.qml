@@ -117,7 +117,7 @@ PanelWindow {
                 Text {
                     anchors.centerIn: parent
                     text: btn.iconTxt
-                    font.family: "Font Awesome 7 Free Solid"
+                    font.family: "DejaVu Sans"
                     font.pixelSize: 20
                     color: mouseArea.containsMouse ? Theme.background : Theme.primary
                 }
@@ -134,11 +134,11 @@ PanelWindow {
                 }
             }
 
-            PowerButton { iconTxt: ""; cmd: "pidof hyprlock || hyprlock" }
-            PowerButton { iconTxt: ""; cmd: "systemctl suspend" }
-            PowerButton { iconTxt: ""; cmd: "hyprctl dispatch exit" }
-            PowerButton { iconTxt: ""; cmd: "systemctl reboot" }
-            PowerButton { iconTxt: ""; cmd: "systemctl poweroff" }
+            PowerButton { iconTxt: "🔒"; cmd: "pidof hyprlock || hyprlock" }
+            PowerButton { iconTxt: "☾"; cmd: "systemctl suspend" }
+            PowerButton { iconTxt: "⇦"; cmd: "hyprctl dispatch exit" }
+            PowerButton { iconTxt: "↻"; cmd: "systemctl reboot" }
+            PowerButton { iconTxt: "⏻"; cmd: "systemctl poweroff" }
         }
     }
 }
