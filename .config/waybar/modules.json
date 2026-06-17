@@ -58,7 +58,7 @@
   "custom/ml4w-welcome": {
     "on-click": "qs ipc call sidebar toggle",
     "on-click-right": "qs ipc call welcome toggle",
-    "format": " ",
+    "format": "󰣇",
     "tooltip-format": "Left: Open ML4W Sidebar\nRight: Open ML4W Welcome App"
   },
   // Empty
@@ -151,7 +151,7 @@
   },
   // Rofi Application Launcher
   "custom/appmenuicon": {
-    "format": "",
+    "format": " ",
     "on-click": "sleep 0.2;rofi -show drun -replace",
     "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
     "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
@@ -264,6 +264,7 @@
   },
   // Group Hardware
   "group/hardware": {
+    "format": "",
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 300,
@@ -280,6 +281,7 @@
   },
   // Group Tools
   "group/tools": {
+    "format": "",
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 300,

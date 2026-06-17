@@ -10,6 +10,5 @@
 @define-color textcolor1 @on_surface;
 @define-color textcolor2 @surface;
 @define-color textcolor3 @on_surface;
-@define-color iconcolor @surface;
 
 @import '../style.css';

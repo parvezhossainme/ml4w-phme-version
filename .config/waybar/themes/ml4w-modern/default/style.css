@@ -8,3 +8,8 @@
 @define-color background @surface;
 
 @import '../style.css';
+
+/* // added custom styles for ml4w-modern theme */
+#custom-ml4w-welcome {
+    font-size: 26px;
+}
