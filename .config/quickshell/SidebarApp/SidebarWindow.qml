@@ -6,6 +6,7 @@ import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Effects
 import qs.CustomTheme
 
 PanelWindow {
@@ -15,7 +16,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     exclusionMode: WlrLayershell.Ignore
     
-    implicitWidth: 380
+    implicitWidth: 420 // 380 + 40
     color: "transparent"
 
     property bool isHyprlandSettingsInstalled: false
@@ -27,8 +28,8 @@ PanelWindow {
     }
 
     margins { 
-        top: 87
-        bottom: 20
+        top: 67 // 87 - 20
+        bottom: 0 // 20 - 20
     }
 
     // --- CLICK OUTSIDE TO CLOSE (Native Hyprland) ---
@@ -57,7 +58,7 @@ PanelWindow {
     visible: isOpen || slideAnim.running
     
     margins { right: root.currentMargin }
-    property real currentMargin: isOpen ? 20 : -450 
+    property real currentMargin: isOpen ? 0 : -470 
 
     Behavior on currentMargin {
         NumberAnimation {
@@ -74,9 +75,8 @@ PanelWindow {
         function close(): void { root.isOpen = false } 
     }
 
-    // --- Check if flatpak is installed when window opens ---
     Process {
-        command: ["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-flatpak-installed com.ml4w.hyprlandsettings"]
+        command: ["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-command-exists hyprmod"]
         running: root.visible
         
         stdout: StdioCollector {
@@ -177,8 +177,18 @@ PanelWindow {
     // ==========================================
     Item {
         anchors.fill: parent
+        anchors.margins: 20
+
+        RectangularShadow {
+            id: shadow
+            anchors.fill: mainBgRect
+            radius: mainBgRect.radius
+            blur: 15
+            color: Qt.rgba(Theme.shadow.r, Theme.shadow.g, Theme.shadow.b, 0.4)
+        }
 
         Rectangle {
+            id: mainBgRect
             anchors.fill: parent
             color: Theme.background
             border.color: Theme.primary
@@ -241,15 +251,16 @@ PanelWindow {
                     text: "Settings"
                     onClicked: {
                         root.isOpen = false
+                        // Quickshell.execDetached(["kitty", "--class", "dotfiles-floating", "-e", "ml4w-dotfiles-settings", "com.ml4w.dotfiles"])
                         Quickshell.execDetached(["bash", "-c", "qs -p " + Quickshell.env("HOME") + "/.local/share/ml4w-dotfiles-settings/quickshell ipc call settings toggle"])
                     }
                 }
                 ML4WButton { 
-                    text: "Hyprland"
+                    text: "HyprMod"
                     visible: root.isHyprlandSettingsInstalled 
                     onClicked: {
                         root.isOpen = false
-                        Quickshell.execDetached(["bash", "-c", "flatpak run com.ml4w.hyprlandsettings"])
+                        Quickshell.execDetached(["hyprmod"])
                     }
                 }
             }
@@ -656,6 +667,37 @@ PanelWindow {
                         Item { implicitWidth: 28 } 
                     }
 
+                    // --- DOCK AUTOHIDE ---
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Text { text: "Dock Autohide"; color: Theme.on_background; font.family: Theme.fontFamily; font.pixelSize: 16 }
+                        Item { Layout.fillWidth: true }
+                        ML4WSwitch { 
+                            id: dockAutohideSwitch
+                            property bool ready: false
+                            Process {
+                                command: ["bash", "-c", "test -f ~/.config/ml4w/settings/dock-autohide && echo 1 || echo 0"]
+                                running: root.isOpen 
+                                stdout: StdioCollector {
+                                    onStreamFinished: {
+                                        console.log("Test for Dock Autohide: " + this.text.trim())
+                                        dockAutohideSwitch.checked = (this.text.trim() === "1")
+                                        dockAutohideSwitch.ready = true
+                                    }
+                                }
+                            }
+                            onClicked: {
+                                if (!ready) return;
+                                let fileCmd = checked 
+                                ? "mkdir -p ~/.config/ml4w/settings && touch ~/.config/ml4w/settings/dock-autohide"
+                                : "rm -f ~/.config/ml4w/settings/dock-autohide"
+                                console.log("Dock Autohide cmd: " + fileCmd)
+                                Quickshell.execDetached(["bash", "-c", fileCmd + "; " + Quickshell.env("HOME") + "/.config/nwg-dock-hyprland/launch.sh"])
+                            }
+                        }
+                        Item { implicitWidth: 28 } 
+                    }
+
                     // --- GAMEMODE ---
                     RowLayout {
                         Layout.fillWidth: true
@@ -708,45 +750,6 @@ PanelWindow {
                             }
                         }
                         Item { implicitWidth: 28 } 
-                    }
-
-                    // --- SIDEPAD ---
-                    RowLayout {
-                        Layout.fillWidth: true
-                        Text { text: "Sidepad"; color: Theme.on_background; font.family: Theme.fontFamily; font.pixelSize: 16 }
-                        Item { Layout.fillWidth: true }
-                        ML4WSwitch { 
-                            id: sidepadSwitch
-                            onClicked: {
-                                if (checked) {
-                                    console.log("Launching sidebar...")
-                                    Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-sidepad --init"])
-                                } else {
-                                    console.log("Stopping sidebar...")
-                                    Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-sidepad --kill"])
-                                }
-                            }
-                        }
-                        SettingsWheel {
-                            onClicked: sidepadMenu.open()
-                            Menu {
-                                id: sidepadMenu
-                                y: parent.height
-                                
-                                implicitWidth: 220
-                                padding: 8
-                                
-                                background: Rectangle { color: Theme.background; border.color: Theme.primary; border.width: 1; radius: 8 }
-                                ML4WMenuItem { text: "Select Sidepad"; onClicked: {
-                                        Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-sidepad --select"])
-                                    } 
-                                }
-                                ML4WMenuItem { text: "Open Sidepad Folder"; onClicked: {
-                                        Quickshell.execDetached(["nautilus", Quickshell.env("HOME") + "/.config/sidepad/pads"])
-                                    } 
-                                }
-                            }
-                        }
                     }
 
                     Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.primary; opacity: 0.3; Layout.topMargin: 5; Layout.bottomMargin: 5 }

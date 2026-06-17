@@ -2,7 +2,7 @@
 .DS_Store
 *.swp
 *~
-
+.config/_archive/
 # Common backup/temp files
 *.bak
 *.old
