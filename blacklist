@@ -1,0 +1,6 @@
+# Blacklist Example
+.config/hypr/conf/monitor.lua
+.config/hypr/conf/keybindings
+.config/hypr/monitors.conf
+# You can also blacklist entire directories
+.config/waybar/

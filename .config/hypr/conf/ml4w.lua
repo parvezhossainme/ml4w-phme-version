@@ -18,7 +18,7 @@ hl.env("PATH", HOME .. "/.cargo/bin:" .. current_path)
 -- Pavucontrol
 hl.window_rule({
     name = "pavucontrol",
-    match = {class = "*org.pulseaudio.pavucontrol*"},
+    match = {class = ".*org.pulseaudio.pavucontrol.*"},
     float = true,
     center = true,
     size = "700 600"
@@ -47,7 +47,7 @@ hl.window_rule({
 -- Waypaper
 hl.window_rule({
     name = "waypaper",
-    match = {class = "*waypaper*"},
+    match = {class = ".*waypaper.*"},    
     float = true,
     center = true,
     pin = true,
@@ -180,7 +180,6 @@ hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 
--- XDG Desktop Portal
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")

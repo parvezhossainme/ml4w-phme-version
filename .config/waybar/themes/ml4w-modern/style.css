@@ -197,17 +197,6 @@ window#waybar.empty #window {
     color: @icon_color;
 }
 
-#custom-notification,
-#custom-exit,
-#custom-ml4w-welcome,
-#clock,
-#tray,
-#group-hardware,
-#group-tools {
-    color: @icon_color;
-    opacity: 1.0;
-}
-
 #custom-quicklink1,
 #custom-quicklink2,
 #custom-quicklink3,
@@ -234,7 +223,7 @@ window#waybar.empty #window {
 }
 
 #custom-ml4w-welcome {
-    margin-right: 5px;
+    margin-right: 12px;
     background-image: url("../../assets/ml4w-icon.svg");
     background-position: center;
     background-repeat: no-repeat;
@@ -390,29 +379,6 @@ window#waybar.empty #window {
     padding: 0px;
     font-size: 16px;
     color: @icon_color;
-}
-
-/* -----------------------------------------------------
- * Drawer Groups
- * ----------------------------------------------------- */
-
-#group-hardware,
-#group-tools {
-    background-color: @background;
-    font-size: 16px;
-    color: @on_surface;
-    border-radius: 8px;
-    padding: 2px 10px 0px 10px;
-    margin: 3px 10px 3px 0px;
-    border: 2px solid @border_color;
-    transition: all 0.3s ease-out;
-}
-
-#group-hardware:hover,
-#group-tools:hover {
-    color: @on_surface;
-    background: @primary_container;
-    border-color: @primary;
 }
 
 /* -----------------------------------------------------

@@ -137,11 +137,23 @@ PanelWindow {
         Rectangle {
             id: mainBgRect
             anchors.fill: parent
-            color: Theme.background
-            border.color: Theme.primary
-            border.width: 2
             radius: 40
             opacity: 0.9 // Only the background is transparent
+
+            // Gradient border (outer)
+            gradient: Gradient {
+                orientation: Gradient.Vertical
+                GradientStop { position: 0.0; color: Theme.primary }
+                GradientStop { position: 1.0; color: Theme.on_primary }
+            }
+
+            // Background fill (inner), inset by the border thickness
+            Rectangle {
+                anchors.fill: parent
+                anchors.margins: 2
+                radius: parent.radius - anchors.margins
+                color: Theme.background
+            }
         }
 
         // ==========================================
@@ -154,7 +166,7 @@ PanelWindow {
 
             component PowerButton: Rectangle {
                 id: btn
-                property string iconTxt: ""
+                property string iconSrc: ""
                 property string cmd: ""
                 property bool selected: false
 
@@ -169,12 +181,20 @@ PanelWindow {
                 border.color: Theme.primary
                 border.width: 1
 
-                Text {
+                Image {
+                    id: btnIcon
                     anchors.centerIn: parent
-                    text: btn.iconTxt
-                    font.family: "monospace"
-                    font.pixelSize: 20
-                    color: (mouseArea.containsMouse || selected) ? Theme.background : Theme.primary
+                    source: btn.iconSrc
+                    width: 22
+                    height: 22
+                    sourceSize.width: 22
+                    sourceSize.height: 22
+                    fillMode: Image.PreserveAspectFit
+                    layer.enabled: true
+                    layer.effect: MultiEffect {
+                        colorization: 1.0
+                        colorizationColor: (mouseArea.containsMouse || btn.selected) ? Theme.background : Theme.primary
+                    }
                 }
 
                 MouseArea {
@@ -191,27 +211,27 @@ PanelWindow {
             }
 
             PowerButton {
-                iconTxt: "";
+                iconSrc: "../shared/icons/lock.svg"
                 selected: root.selectedIndex === 0
                 onClicked: { Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-power -l"]) }
             }
             PowerButton {
-                iconTxt: "";
+                iconSrc: "../shared/icons/suspend.svg"
                 selected: root.selectedIndex === 1
                 onClicked: { Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-power -s"]) }
             }
             PowerButton {
-                iconTxt: "";
+                iconSrc: "../shared/icons/logout.svg"
                 selected: root.selectedIndex === 2
                 onClicked: { Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-power -e"]) }
             }
             PowerButton {
-                iconTxt: "";
+                iconSrc: "../shared/icons/reboot.svg"
                 selected: root.selectedIndex === 3
                 onClicked: { Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-power -r"]) }
             }
             PowerButton {
-                iconTxt: "";
+                iconSrc: "../shared/icons/power.svg"
                 selected: root.selectedIndex === 4
                 onClicked: { Quickshell.execDetached(["bash", "-c", Quickshell.env("HOME") + "/.config/ml4w/scripts/ml4w-power -p"]) }
             }

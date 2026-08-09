@@ -264,7 +264,6 @@
   },
   // Group Hardware
   "group/hardware": {
-    "format": "",
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 300,
@@ -281,7 +280,6 @@
   },
   // Group Tools
   "group/tools": {
-    "format": "",
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 300,
